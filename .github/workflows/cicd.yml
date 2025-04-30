@@ -48,7 +48,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":rocket: *${{ job.status == 'success' && 'Deploy successfully' || (job.status == 'failure' && needs.build.result == 'failure' && 'Build failed') || 'Deploy failed' }}!*"
+                    "text": ":rocket: *${{ needs.build.result == 'failure' && ':x: *Build Failed!*' || needs.deploy.result == 'failure' && ':x: *Deploy Failed!*' || ':white_check_mark: *Deploy Successfully!*' }}!*"
                   }
                 },
                 {
