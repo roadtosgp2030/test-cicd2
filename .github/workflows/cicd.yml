@@ -15,7 +15,7 @@ jobs:
       - name: Build Docker Image
         run: docker build -t vuduc15/practice-cicd .
       - name: Publish image to docker Hub
-        run: docker push vuduc15/practice-cicd:latest
+        run: docker pus vuduc15/practice-cicd:latest
 
   deploy:
     needs: build
@@ -55,7 +55,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Commit*: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.message }}>\n*Committer*: <${{ github.event.head_commit.author.url }}|${{ github.event.head_commit.author.name }}>\n*Details*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow>"
+                    "text": "*Commit*: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.message }}>\n*Committer*: ${{ github.event.head_commit.author.name }}\n*Details*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow>"
                   }
                 }
               ]
@@ -80,7 +80,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Commit*: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.message }}>\n*Committer*: <${{ github.event.head_commit.author.url }}|${{ github.event.head_commit.author.name }}>\n*Details*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow>"
+                    "text": "*Commit*: <${{ github.event.head_commit.url }}|${{ github.event.head_commit.message }}>\n*Committer*: ${{ github.event.head_commit.author.name }}\n*Details*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow>"
                   }
                 }
               ]
