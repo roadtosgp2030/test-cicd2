@@ -56,7 +56,7 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
+                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|View Commit>"
                     }
                   ]
                 },
