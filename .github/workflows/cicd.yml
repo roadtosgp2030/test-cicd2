@@ -38,5 +38,45 @@ jobs:
         uses: act10ns/slack@v2.1.0
         with:
           status: ${{ job.status }}
-          config: .github/slack.yml
+          blocks: |
+            [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": ":rocket: Deployment Update 🚀",
+                  "emoji": true
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*📦 Repository:*\n${{ github.repository }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*🌿 Branch:*\n${{ github.ref_name }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*🛠️ Workflow:*\n${{ github.workflow }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*📊 Status:*\n`${{ job.status == 'success' && ':white_check_mark: Success' || job.status == 'failure' && ':x: Failed' || job.status }}`"
+                  }
+                ]
+              },
+              {
+                "type": "context",
+                "elements": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "👤 Triggered by *${{ github.actor }}* · 🔗 <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
+                  }
+                ]
+              }
+            ]
         if: always()
