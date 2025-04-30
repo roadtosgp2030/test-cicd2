@@ -61,7 +61,7 @@ jobs:
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
+                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}"
                     },
                     {
                       "type": "mrkdwn",
@@ -74,7 +74,7 @@ jobs:
                   "elements": [
                     {
                       "type": "mrkdwn",
-                      "text": "Triggered by: ${{ github.actor }} via push to *main*"
+                      "text": "Triggered by: <https://github.com/${{ github.actor }}|${{ github.actor }}> via push to *main*"
                     }
                   ]
                 }
