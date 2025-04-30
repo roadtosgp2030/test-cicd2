@@ -15,7 +15,7 @@ jobs:
       - name: Build Docker Image
         run: docker build -t vuduc15/practice-cicd .
       - name: Publish image to docker Hub
-        run: docker pus vuduc15/practice-cicd:latest
+        run: docker push vuduc15/practice-cicd:latest
 
   deploy:
     needs: build
@@ -48,7 +48,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "✅ *CI/CD Pipeline Succeeded* for *${{ github.repository }}*"
+                    "text": "✅ *Deploy Succeeded*"
                   }
                 },
                 {
@@ -73,7 +73,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "❌ *CI/CD Pipeline Failed* for *${{ github.repository }}*"
+                    "text": "❌ *Deploy Failed*"
                   }
                 },
                 {
