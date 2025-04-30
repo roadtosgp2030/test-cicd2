@@ -32,22 +32,43 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Read Payload File
-        id: read_payload
-        run: |
-          if [ "${{ job.status }}" == "success" ]; then
-          payload=$(<.github/messages/success.json)
-          else
-            payload=$(<.github/messages/failure.json)
-          fi
-          echo "payload=$payload" >> $GITHUB_ENV
-
       - name: Post a message in a channel
         uses: slackapi/slack-github-action@v2.0.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
-          payload: ${{ env.payload }}
+          payload: |
+            {
+              "text": ":white_check_mark: *Deployment Notification*",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rocket: *Deploy ${{ job.status == 'success' && 'successfully' || 'failed' }}!*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:*\n${{ job.status }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "Triggered by: <https://github.com/${{ github.actor }}|${{ github.actor }}> via push to *main*"
+                    }
+                  ]
+                }
+              ]
+            }
