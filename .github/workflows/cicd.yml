@@ -39,6 +39,8 @@ jobs:
         if: ${{ needs.build.result == 'success' && needs.deploy.result == 'success' }}
         uses: slackapi/slack-github-action@v2
         with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
             {
               "blocks": [
@@ -58,14 +60,12 @@ jobs:
                 }
               ]
             }
-        env:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
-
       - name: Notify Failure to Slack
         if: ${{ needs.build.result == 'failure' || needs.deploy.result == 'failure' }}
         uses: slackapi/slack-github-action@v2
         with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
             {
               "blocks": [
@@ -85,6 +85,3 @@ jobs:
                 }
               ]
             }
-        env:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
