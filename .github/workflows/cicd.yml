@@ -15,7 +15,7 @@ jobs:
       - name: Build Docker Image
         run: docker build -t vuduc15/practice-cicd .
       - name: Publish image to docker Hub
-        run: docker push vuduc15/practice-cicd
+        run: docker push vuduc15/practice-cicd:latest
 
   deploy:
     needs: build
