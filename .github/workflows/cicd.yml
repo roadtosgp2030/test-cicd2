@@ -27,3 +27,16 @@ jobs:
         run: docker rm -f reactContainer
       - name: Run docker container
         run: docker run -d -p 80:80 --name reactContainer vuduc15/practice-cicd
+
+  noti:
+    needs: deploy
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - uses: act10ns/slack@v2
+        with:
+          channel: '#testing-chat-bot'
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        if: always()
