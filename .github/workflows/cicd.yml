@@ -35,7 +35,17 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ always() }}
     steps:
-      - name: Post a message in a channel
+      - name: Truncate Commit Message
+        id: truncate_message
+        run: |
+          commit_message="${{ github.event.head_commit.message }}"
+          truncated_commit_message=$(echo "$commit_message" | cut -c1-80)
+          if [ ${#commit_message} -gt 80 ]; then
+            truncated_commit_message="${truncated_commit_message}..."
+          fi
+          echo "TRUNCATED_COMMIT_MESSAGE=$truncated_commit_message" >> $GITHUB_ENV
+
+      - name: Send Notification to Slack
         uses: slackapi/slack-github-action@v2.0.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -56,7 +66,7 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|View Commit>"
+                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ env.TRUNCATED_COMMIT_MESSAGE }}>"
                     }
                   ]
                 },
