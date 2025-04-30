@@ -35,7 +35,7 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - name: Notify Slack
-        uses: act10ns/slack@v2
+        uses: act10ns/slack@v2.1.0
         with:
           status: ${{ job.status }}
           config: .github/config/slack.yml
