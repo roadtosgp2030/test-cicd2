@@ -15,7 +15,7 @@ jobs:
       - name: Build Docker Image
         run: docker build -t vuduc15/practice-cicd .
       - name: Publish image to docker Hub
-        run: docker pus vuduc15/practice-cicd:latest
+        run: docker push vuduc15/practice-cicd:latest
 
   deploy:
     needs: build
@@ -26,7 +26,7 @@ jobs:
       - name: Delete Old Container
         run: docker rm -f reactContainer
       - name: Run docker container
-        run: docker run -d -p 80:80 --name reactContainer vuduc15/practice-cicd
+        run: docker ru -d -p 80:80 --name reactContainer vuduc15/practice-cicd
 
   noti:
     needs:
@@ -48,7 +48,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":rocket: *${{ needs.build.result == 'failure' && ':x: *Build Failed!*' || needs.deploy.result == 'failure' && ':x: *Deploy Failed!*' || ':white_check_mark: *Deploy Successfully!*' }}!*"
+                    "text": "*${{ needs.build.result == 'failure' && ':x: *Build Failed!*' || needs.deploy.result == 'failure' && ':x: *Deploy Failed!*' || ':white_check_mark: *Deploy Successfully!*' }}!*"
                   }
                 },
                 {
@@ -57,10 +57,6 @@ jobs:
                     {
                       "type": "mrkdwn",
                       "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Status:*\n${{ job.status }}"
                     }
                   ]
                 },
