@@ -36,7 +36,6 @@ jobs:
     steps:
       - uses: act10ns/slack@v2
         with:
-          channel: '#testing-chat-bot'
           status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
+          config: .github/config/slack.yml
         if: always()
