@@ -29,8 +29,11 @@ jobs:
         run: docker run -d -p 80:80 --name reactContainer vuduc15/practice-cicd
 
   noti:
-    needs: deploy
+    needs:
+      - build
+      - deploy
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     steps:
       - name: Post a message in a channel
         uses: slackapi/slack-github-action@v2.0.0
@@ -45,7 +48,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":rocket: *Deploy ${{ job.status == 'success' && 'successfully' || 'failed' }}!*"
+                    "text": ":rocket: *${{ job.status == 'success' && 'Deploy successfully' || (job.status == 'failure' && needs.build.result == 'failure' && 'Build failed') || 'Deploy failed' }}!*"
                   }
                 },
                 {
