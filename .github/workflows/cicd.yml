@@ -26,7 +26,7 @@ jobs:
       - name: Delete Old Container
         run: docker rm -f reactContainer
       - name: Run docker container
-        run: docker ru -d -p 80:80 --name reactContainer vuduc15/practice-cicd
+        run: docker run -d -p 80:80 --name reactContainer vuduc15/practice-cicd
 
   noti:
     needs:
@@ -48,7 +48,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*${{ needs.build.result == 'failure' && ':x: *Build Failed!*' || needs.deploy.result == 'failure' && ':x: *Deploy Failed!*' || ':white_check_mark: *Deploy Successfully!*' }}!*"
+                    "text": "${{ needs.build.result == 'failure' && ':x: *Build Failed!*' || needs.deploy.result == 'failure' && ':x: *Deploy Failed!*' || ':white_check_mark: *Deploy Successfully!*' }}"
                   }
                 },
                 {
