@@ -53,15 +53,7 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*Repository:*\n${{ github.repository }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Branch:*\n${{ github.ref_name }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}"
+                      "text": "*Commit:*\n<${{ github.event.head_commit.url }}|${{ github.event.head_commit.id }}>"
                     },
                     {
                       "type": "mrkdwn",
