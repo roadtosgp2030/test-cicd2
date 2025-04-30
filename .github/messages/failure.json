@@ -1,0 +1,34 @@
+{
+  "text": ":x: *Deployment Notification*",
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":boom: *Deployment failed!*"
+      }
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Commit:*\n<{{ github.event.head_commit.url }}|{{ github.event.head_commit.id }}>"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Status:*\n{{ job.status }}"
+        }
+      ]
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "Triggered by: <https://github.com/{{ github.actor }}|{{ github.actor }}> via push to *main*"
+        }
+      ]
+    }
+  ]
+}

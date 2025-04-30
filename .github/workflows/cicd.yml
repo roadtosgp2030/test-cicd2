@@ -38,7 +38,11 @@ jobs:
       - name: Read Payload File
         id: read_payload
         run: |
-          payload=$(<.github/slack_payload.json)
+          if [ "${{ job.status }}" == "success" ]; then
+          payload=$(<.github/messages/success.json)
+          else
+            payload=$(<.github/messages/failure.json)
+          fi
           echo "payload=$payload" >> $GITHUB_ENV
 
       - name: Post a message in a channel
